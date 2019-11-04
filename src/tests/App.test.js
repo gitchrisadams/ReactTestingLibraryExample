@@ -1,7 +1,8 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import Counter from "./components/Counter";
-import Todos from "./components/Todos";
+import "@testing-library/jest-dom/extend-expect";
+import Counter from "../components/Counter";
+import Todos from "../components/Todos";
 
 describe("<Counter />", () => {
     it("properly increments and decrements the counter", () => {
@@ -11,10 +12,10 @@ describe("<Counter />", () => {
         const decrementButton = getByText("-");
 
         fireEvent.click(incrementButton);
-        expect(counter.textContent).toEqual("1");
+        expect(counter).toHaveTextContent("1");
 
         fireEvent.click(decrementButton);
-        expect(counter.textContent).toEqual("0");
+        expect(counter).toHaveTextContent("0");
     });
 });
 
@@ -29,5 +30,5 @@ test("adds a new to-do", () => {
     fireEvent.keyDown(input, { key: "Enter" });
 
     getByText(todo);
-    expect(input.value).toBe("");
+    expect(input).toHaveValue("");
 });
